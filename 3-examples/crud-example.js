@@ -20,7 +20,8 @@ mongodb.MongoClient.connect(uri, function(error, db) {
 	    process.exit(1);
 	}
 
-	db.collection('movies').find().toArray(function(error, docs) {
+	var query = { year: 1975, rating: 'PG' };
+	db.collection('movies').find(query).toArray(function(error, docs) {
 	    if (error) {
 		console.log(error);
 		process.exit(1);
