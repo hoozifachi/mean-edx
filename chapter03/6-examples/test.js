@@ -68,13 +68,13 @@ describe('Category API', function() {
 	});
     });
 
-    it('can load all categories that have a certain parent', function(done) {
-	var categories = [
-	    { _id: 'Electronics' },
-	    { _id: 'Phones', parent: 'Electronics' },
-	    { _id: 'Laptops', parent: 'Electronics' },
-	    { _id: 'Bacon' }
-	];
+  it('can load all products in a category with sub-categories', function(done) {
+    var categories = [
+      { _id: 'Electronics' },
+      { _id: 'Phones', parent: 'Electronics' },
+      { _id: 'Laptops', parent: 'Electronics' },
+      { _id: 'Bacon' }
+    ];
 
 	var products = [
 	    {
@@ -122,22 +122,22 @@ describe('Category API', function() {
 		    assert.equal(result.products[0].name, 'Asus Zenbook Prime');
 		    assert.equal(result.products[1].name, 'LG G4');
 
-		    // Sort by price ascending
-		    var url = URL_ROOT = '/product/category/Electronics?price=1';
-		    superagent.get(url, function(error, res) {
-			assert.ifError(error);
-			var result;
-			assert.doesNotThrow(function() {
-			    result = JSON.parse(res.text);
-			});
-			assert.equal(result.products.length, 2);
-			// Should be in ascending order by name
-			assert.equal(result.products[0].name, 'LG G4');
-			assert.equal(result.products[1].name, 'Asus Zenbook Prime');
-			done();
-		    });
-		});
-	    });
-	});
+          // Sort by price, ascending
+          var url = URL_ROOT + '/product/category/Electronics?price=1';
+          superagent.get(url, function(error, res) {
+            assert.ifError(error);
+            var result;
+            assert.doesNotThrow(function() {
+              result = JSON.parse(res.text);
+            });
+            assert.equal(result.products.length, 2);
+            // Should be in ascending order by name
+            assert.equal(result.products[0].name, 'LG G4');
+            assert.equal(result.products[1].name, 'Asus Zenbook Prime');
+            done();
+          });
+        });
+      });
     });
+  });
 });
