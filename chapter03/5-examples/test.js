@@ -75,7 +75,7 @@ describe('Category API', function() {
 		assert.equal(result.categories.length, 2);
 		// Should be in ascending order by _id
 		assert.equal(result.categories[0]._id, 'Laptops');
-		assert.equal(reuslt.categories[1]._id, 'Phones');
+        assert.equal(result.categories[1]._id, 'Phones');
 		done();
 	    });
 	});

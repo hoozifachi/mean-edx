@@ -4,7 +4,7 @@ var status = require('http-status');
 module.exports = function(wagner) {
     var api = express.Router();
 
-    api.get('category/id/:id', wagner.invoke(function(Category) {
+  api.get('/category/id/:id', wagner.invoke(function(Category) {
 	return function(req, res) {
 	    Category.findOne({ _id: req.params.id }, function(error, category) {
 		if (error) {
@@ -25,7 +25,7 @@ module.exports = function(wagner) {
     api.get('/category/parent/:id', wagner.invoke(function(Category) {
 	return function(req, res) {
 	    Category.
-		find({ parent: req.param.id }).
+                find({ parent: req.params.id }).
 		sort({ _id: 1 }).
 		exec(function(error, categories) {
 		    if (error) {
@@ -39,4 +39,4 @@ module.exports = function(wagner) {
     }));
 
     return api;
-}
+};
