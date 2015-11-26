@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var category = require('./category');
+var Category = require('./category');
 var fx = require('./fx');
 
 var productSchema = {
@@ -45,8 +45,8 @@ var currencySymbols = {
  * than "25 USD"
  */
 schema.virtual('displayPrice').get(function() {
-  return currencySymbols[this.price.currency] +
-    '' + this.price.amount;
+    return currencySymbols[this.price.currency] +
+	'' + this.price.amount;
 });
 
 schema.set('toObject', { virtuals: true });
