@@ -37,7 +37,7 @@ function setupAuth(User, app) {
 		},
 		{ 'new': true, upsert: true, runValidators: true },
 		function(error, user) {
-		    done();
+		    done(error, user);
 		});
 	}));
 
@@ -52,10 +52,10 @@ function setupAuth(User, app) {
     app.get('/auth/facebook',
 	    passport.authenticate('facebook', { scope: ['email'] }));
 
-    app.get('auth/facebook/callback',
+    app.get('/auth/facebook/callback',
 	    passport.authenticate('facebook', { failureRedirect: '/fail' }),
 	    function(req, res) {
-		res.send('Welcome, ' + req.user.usernme);
+		res.send('Welcome, ' + req.user.profile.username);
 	    });
 }
 
