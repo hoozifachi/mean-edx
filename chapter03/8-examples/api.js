@@ -13,7 +13,7 @@ module.exports = function(wagner) {
 		var cart = req.body.data.cart;
 	    } catch(e) {
 		return res.
-		    status(status/BAD_REQUEST).
+                    status(status.BAD_REQUEST).
 		    json({ error: 'No cart specified!' });
 	    }
 
