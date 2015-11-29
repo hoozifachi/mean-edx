@@ -14,7 +14,7 @@ module.exports = function(wagner) {
 		var cart = req.body.data.cart;
 	    } catch(e) {
 		return res.
-		    status(status/BAD_REQUEST).
+                    status(status.BAD_REQUEST).
 		    json({ error: 'No cart specified!' });
 	    }
 
@@ -61,7 +61,7 @@ module.exports = function(wagner) {
 		});
 
 		// And create a charge in Stripe corresponding to the price
-		Stripe.charge.create(
+                Stripe.charges.create(
 		    {
 			// Stripe wantgs price in cents, so multiple by 100 and round up
 			amount: Math.ceil(totalCostUSD * 100),
@@ -70,21 +70,22 @@ module.exports = function(wagner) {
 			description: 'Example charge'
 		    },
 		    function(err, charge) {
-			if (err && err.type == 'StripeCardError') {
+			if (err && err.type === 'StripeCardError') {
 			    return res.
 				status(status.BAD_REQUEST).
 				json({ error: err.toString() });
 			}
 			if (err) {
 			    console.log(err);
-			    retrun res.
+              return res.
 				status(status.INTERNAL_SERVER_ERROR).
 				json({ error: err.toString() });
 			}
 
 			req.user.data.cart = []
 			req.user.save(function() {
-			    return res.jason({ id: charge.id });
+                            // If successful, return the charge id
+                            return res.json({ id: charge.id });
 			});
 		    });
 	    });

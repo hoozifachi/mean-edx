@@ -31,7 +31,7 @@ function setupAuth(User, app) {
 		{
 		    $set: {
 			'profile.username': profile.emails[0].value,
-			'profile.picture': 'http://graph.facebook.com' +
+			'profile.picture': 'http://graph.facebook.com/' +
 			    profile.id.toString() + '/picture?type=large'
 		    }
 		},

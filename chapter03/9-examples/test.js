@@ -7,7 +7,7 @@ var wagner = require('wagner-core');
 var URL_ROOT = 'http://localhost:3000';
 var PRODUCT_ID = '000000000000000000000001';
 
-describe('Product API', function() {
+describe('User Checkout', function() {
     var server;
     var Category;
     var Product;
@@ -17,10 +17,12 @@ describe('Product API', function() {
 
 	// Bootstrap server
 	models = require('./models')(wagner);
+    dependencies = require('./dependencies')(wagner);
 
-	// Make Category model available to unit tests
+    // Make models available in tests
 	Category = models.Category;
 	Product = models.Product;
+    Stripe = dependencies.Stripe;
 	User = models.User;
 
 	app.use(function(req, res, next) {
@@ -112,7 +114,7 @@ describe('Product API', function() {
 	});
     });
 
-    it('can can save a users cart', function(done) {
+  it('can save users cart', function(done) {
 	var url = URL_ROOT + '/me/cart';
 	superagent.
 	    put(url).
@@ -176,7 +178,7 @@ describe('Product API', function() {
 		    send({
 			// Fake stripe credentials. stripeToken can either be
 			// real credit card credentials or an encrypted token -
-			// in production, it will be an encrypted toke,
+                        // in production it will be an encrypted token.
 			stripeToken: {
 			    number: '4242424242424242',
 			    cvc: '123',
@@ -197,10 +199,10 @@ describe('Product API', function() {
 			assert.ok(result.id);
 
 			// Make sure stripe got the id
-			Stripe.charge.retrieve(result.id, function(error, charge) {
+                        Stripe.charges.retrieve(result.id, function(error, charge) {
 			    assert.ifError(error);
 			    assert.ok(charge);
-			    assert.equal(charge.amount, 2000 * 100);
+                            assert.equal(charge.amount, 2000 * 100); // 2000 USD
 			    done();
 			});
 		    });
