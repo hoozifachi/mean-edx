@@ -19,10 +19,12 @@ describe('Text Search API', function() {
 
 	// Bootstrap server
 	models = require('./models')(wagner);
+    dependencies = require('./dependencies')(wagner);
 
-	// Make Category model available to unit tests
+    // Make models available in tests
 	Category = models.Category;
 	Product = models.Product;
+    Stripe = dependencies.Stripe;
 	User = models.User;
 
 	app.use(function(req, res, next) {
