@@ -1,6 +1,9 @@
 # emacs backups
 *~
 
+# Config files
+config.json
+
 # Logs
 logs
 *.log
