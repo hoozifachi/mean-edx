@@ -6,7 +6,7 @@ describe('Nav Bar', function() {
   var httpBackend;
 
   beforeEach(function() {
-    injector = angular.injector(['myApp', 'ngMoclE2E']);
+    injector = angular.injector(['myApp', 'ngMockE2E']);
     intercepts = {};
 
     injector.invoke(function($rootScope, $compile, $httpBackend) {
@@ -23,6 +23,7 @@ describe('Nav Bar', function() {
     });
 
     element = compiler('<user-menu></user-menu>')(scope);
+    scope.$apply();
 
     scope.$on('MyHttpController', function() {
       httpBackend.flush();

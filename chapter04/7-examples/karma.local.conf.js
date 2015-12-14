@@ -15,5 +15,5 @@ module.exports = function(config) {
     proxies: {
       '/7-examples': 'http://localhost:9876/base/'
     }
-  })
+  });
 };

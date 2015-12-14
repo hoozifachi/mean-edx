@@ -14,5 +14,5 @@ app.controller('MyHttpController', function($scope, $http) {
 
   setTimeout(function() {
     $scope.$emit('MyHttpController');
-  });
+  }, 0);
 });
